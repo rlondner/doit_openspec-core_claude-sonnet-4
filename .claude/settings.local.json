@@ -3,7 +3,10 @@
     "allow": [
       "Bash(openspec new:*)",
       "Bash(openspec status:*)",
-      "Bash(openspec instructions:*)"
+      "Bash(openspec instructions:*)",
+      "Read(//c/Users/rlond/Documents/GitHub/doit_root/**)",
+      "Bash(node_modules/.bin/tsc --noEmit)",
+      "Bash(node_modules/.bin/next build:*)"
     ]
   }
 }
