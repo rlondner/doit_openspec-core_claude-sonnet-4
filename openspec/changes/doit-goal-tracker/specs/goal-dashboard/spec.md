@@ -52,7 +52,12 @@ The Add Goal modal SHALL contain a text input for the goal title and a date pick
 - **THEN** the modal closes and the new goal appears in the active column
 
 ### Requirement: Orange "Radiant Editorial" design theme
-The dashboard SHALL implement the "Radiant Editorial" design system: warm citrus palette (`primary` #b43a10, `primary-container` #ff784e), tonal surface hierarchy (no 1px borders), Plus Jakarta Sans typography, and pill/rounded buttons.
+The entire application SHALL implement the "Radiant Editorial" design system: warm citrus palette (`primary` #b43a10, `primary-container` #ff784e), tonal surface hierarchy (no 1px borders), Plus Jakarta Sans typography, and pill/rounded buttons. It SHALL follow the design files below:
+following the design files:
+- `design/orange/add_new_goal_modal_orange/code.html` — authoritative color tokens for the whole app
+- `design/orange/do_it_dashboard/code.html` — dashboard layout reference (color tokens overridden by warm orange palette)
+- `design/orange/edit_existing_goal/code.html` — edit goal modal layout reference
+
 
 #### Scenario: Primary CTA button uses gradient
 - **WHEN** the Add Goal submit button is rendered
