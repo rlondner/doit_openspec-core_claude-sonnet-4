@@ -33,15 +33,26 @@ Active goal cards whose end date is within 3 calendar days from today (inclusive
 - **WHEN** an active goal has an end date that is 4 or more days from today
 - **THEN** the goal card is rendered without the urgency highlight style
 
+### Requirement: Completed goal cards show revert control
+Each completed goal card SHALL display a checked checkbox. Unchecking it SHALL revert the goal to active status, removing it from the completed column and restoring it to the active column.
+
+#### Scenario: Completed card shows checked checkbox
+- **WHEN** a goal is in the completed column
+- **THEN** its checkbox is rendered in a checked state
+
+#### Scenario: Unchecking completed card checkbox reverts goal
+- **WHEN** a user unchecks the checkbox on a completed goal card
+- **THEN** the goal's `completed` field is set to `false` in storage and the card moves to the active column
+
 ### Requirement: Add Goal button opens modal
 The dashboard SHALL provide a clearly labelled button ("Add Goal" or equivalent) that opens the goal creation modal when clicked.
 
 #### Scenario: Clicking Add Goal button
 - **WHEN** a user clicks the "Add Goal" button on the dashboard
-- **THEN** the Add Goal modal opens with empty title and end date fields
+- **THEN** the Add Goal modal opens with empty title, end date, and Focus Area fields
 
 ### Requirement: Add Goal modal fields and submission
-The Add Goal modal SHALL contain a text input for the goal title and a date picker for the end date, plus a submit action and a dismiss/cancel action.
+The Add Goal modal SHALL contain a text input for the goal title, a date picker for the end date, and a Focus Area selector (Personal | Professional), plus a submit action and a dismiss/cancel action.
 
 #### Scenario: Modal can be dismissed without saving
 - **WHEN** a user opens the Add Goal modal and clicks Cancel or presses Escape

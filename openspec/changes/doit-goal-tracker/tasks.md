@@ -10,7 +10,7 @@
 
 ## 2. Data Model & Types
 
-- [ ] 2.1 Define `Goal` TypeScript interface (`id`, `title`, `endDate`, `completed`, `createdAt`) in `src/types/goal.ts`
+- [ ] 2.1 Define `Goal` TypeScript interface (`id`, `title`, `endDate`, `completed`, `focus_area`, `createdAt`) in `src/types/goal.ts`
 - [ ] 2.2 Define `CreateGoalInput` and `UpdateGoalInput` types
 - [ ] 2.3 Define `StorageAdapter` interface with `listGoals`, `createGoal`, `updateGoal`, `deleteGoal` methods
 
@@ -25,7 +25,7 @@
 - [ ] 4.1 Create `app/api/goals/route.ts` handling `GET` (list all goals) and `POST` (create goal) using `pg.Pool`
 - [ ] 4.2 Create `app/api/goals/[id]/route.ts` handling `PATCH` (update goal) and `DELETE` (delete goal, returns 204)
 - [ ] 4.3 Create `lib/db.ts` with a singleton `pg.Pool` configured from `DATABASE_URL`
-- [ ] 4.4 Write the PostgreSQL migration SQL (`migrations/001_create_goals.sql`) with the `goals` table schema
+- [ ] 4.4 Write the PostgreSQL migration SQL (`migrations/001_create_goals.sql`) with the `goals` table schema including the `focus_area` column
 
 ## 5. Goal Dashboard Layout
 
@@ -36,30 +36,33 @@
 
 ## 6. Goal Card Component
 
-- [ ] 6.1 Create `GoalCard` component accepting a `Goal` prop plus `onComplete` and `onDelete` callbacks
+- [ ] 6.1 Create `GoalCard` component accepting a `Goal` prop plus `onToggleComplete`, `onEdit`, and `onDelete` callbacks
 - [ ] 6.2 Display goal title using Plus Jakarta Sans body typography in `on-surface` (#393831)
 - [ ] 6.3 Calculate and display days remaining using `date-fns` `differenceInCalendarDays`; show "Overdue" when negative
 - [ ] 6.4 Apply urgency highlight style (peach `tertiary-container` #fddeb0 background) when days remaining ≤ 3
-- [ ] 6.5 Render a shadcn `Checkbox` that triggers `onComplete` when checked
-- [ ] 6.6 Render a delete icon/button that triggers `onDelete`
-- [ ] 6.7 Style the card using `surface-container-lowest` (#ffffff) on `surface-container-low`, `xl` border radius, no border lines, ambient shadow
+- [ ] 6.5 Render a shadcn `Checkbox` that triggers `onToggleComplete` on both check (active→complete) and uncheck (complete→active)
+- [ ] 6.6 Render an edit icon/button on active goal cards that triggers `onEdit`; hide edit icon on completed cards
+- [ ] 6.7 Render a delete icon/button that triggers `onDelete`
+- [ ] 6.8 Style the card using `surface-container-lowest` (#ffffff) on `surface-container-low`, `xl` border radius, no border lines, ambient shadow
 
-## 7. Add Goal Modal
+## 7. Goal Modal (Add & Edit)
 
-- [ ] 7.1 Create `AddGoalModal` component using shadcn `Dialog`
-- [ ] 7.2 Add a controlled text `Input` for the goal title with validation (non-empty)
-- [ ] 7.3 Add a date `Input` (type="date") for the end date with validation (required)
-- [ ] 7.4 Wire Submit button to call the storage adapter's `createGoal`, close the modal, and refresh the goal list
-- [ ] 7.5 Wire Cancel / Escape to close modal without saving
-- [ ] 7.6 Apply glassmorphism style to the modal overlay (`surface-container-lowest` at 80% opacity, `backdrop-filter: blur(12px)`)
+- [ ] 7.1 Create `GoalModal` component using shadcn `Dialog`, accepting optional `goal` prop (populated = edit mode, absent = create mode)
+- [ ] 7.2 Add a controlled text `Input` for the goal title with validation (non-empty); pre-populate from `goal.title` in edit mode
+- [ ] 7.3 Add a date `Input` (type="date") for the end date with validation (required); pre-populate from `goal.endDate` in edit mode
+- [ ] 7.4 Add a Focus Area selector (Personal | Professional) mapped to `focus_area`; pre-populate from `goal.focus_area` in edit mode; default to `personal` in create mode
+- [ ] 7.5 Wire Submit button: call `createGoal` in create mode or `updateGoal` in edit mode, then close modal and refresh goal list
+- [ ] 7.6 Wire Cancel / Escape to close modal without saving
+- [ ] 7.7 Apply glassmorphism style to the modal overlay (`surface-container-lowest` at 80% opacity, `backdrop-filter: blur(12px)`)
 
 ## 8. Dashboard State & Data Flow
 
 - [ ] 8.1 Initialise goal list state in `app/page.tsx` with a `useEffect` call to `adapter.listGoals()` on mount
 - [ ] 8.2 Implement `handleAddGoal` — calls `adapter.createGoal`, appends to local state
-- [ ] 8.3 Implement `handleComplete` — calls `adapter.updateGoal(id, { completed: true })`, moves card from active to completed list
-- [ ] 8.4 Implement `handleDelete` — calls `adapter.deleteGoal(id)`, removes card from the relevant list
-- [ ] 8.5 Pass active goals (filter `completed === false`) to the left column and completed goals to the right column
+- [ ] 8.3 Implement `handleToggleComplete` — calls `adapter.updateGoal(id, { completed: !goal.completed })`, moves card between columns accordingly
+- [ ] 8.4 Implement `handleEdit` — opens `GoalModal` pre-populated with the selected goal; on save calls `adapter.updateGoal` and refreshes local state
+- [ ] 8.5 Implement `handleDelete` — calls `adapter.deleteGoal(id)`, removes card from the relevant list
+- [ ] 8.6 Pass active goals (filter `completed === false`) to the left column and completed goals to the right column
 
 ## 9. Design Polish
 

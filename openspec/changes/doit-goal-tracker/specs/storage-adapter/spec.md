@@ -20,7 +20,7 @@ Both storage implementations SHALL conform to the same `StorageAdapter` interfac
 
 #### Scenario: Adapter methods return consistent Goal shape
 - **WHEN** `createGoal` is called on either the `LocalStorageAdapter` or `ApiAdapter`
-- **THEN** the resolved value SHALL be a `Goal` object containing `id`, `title`, `endDate`, `completed`, and `createdAt`
+- **THEN** the resolved value SHALL be a `Goal` object containing `id`, `title`, `endDate`, `completed`, `focus_area`, and `createdAt`
 
 ### Requirement: LocalStorageAdapter persistence
 The `LocalStorageAdapter` SHALL serialize the goals array as JSON under the `localStorage` key `doit_goals`. On initialisation, if the key is absent it SHALL treat the goal list as empty.
@@ -34,7 +34,7 @@ The `LocalStorageAdapter` SHALL serialize the goals array as JSON under the `loc
 - **THEN** `listGoals()` resolves to an empty array
 
 ### Requirement: PostgreSQL schema for production mode
-In production mode the system SHALL use a `goals` table with columns: `id` (UUID, primary key, default `gen_random_uuid()`), `title` (TEXT NOT NULL), `end_date` (DATE NOT NULL), `completed` (BOOLEAN NOT NULL DEFAULT false), `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()).
+In production mode the system SHALL use a `goals` table with columns: `id` (UUID, primary key, default `gen_random_uuid()`), `title` (TEXT NOT NULL), `end_date` (DATE NOT NULL), `completed` (BOOLEAN NOT NULL DEFAULT false), `focus_area` (TEXT NOT NULL DEFAULT 'personal'), `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()).
 
 #### Scenario: Goals table migration runs without error
 - **WHEN** the migration SQL is executed against a fresh PostgreSQL database
@@ -52,7 +52,7 @@ The system SHALL expose the following API routes when in production mode:
 - **THEN** the response is `200 OK` with a JSON array of goal objects
 
 #### Scenario: POST /api/goals creates and returns goal
-- **WHEN** a `POST` request with `{ title, endDate }` body is made to `/api/goals`
+- **WHEN** a `POST` request with `{ title, endDate, focus_area }` body is made to `/api/goals`
 - **THEN** the response is `201 Created` with the persisted goal object including its generated `id`
 
 #### Scenario: DELETE /api/goals/[id] removes goal
