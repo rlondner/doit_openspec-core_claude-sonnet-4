@@ -1,4 +1,4 @@
-# Do It — Goal Tracking App
+# DoIt — Goal Tracker App (OpenSpec-built)
 
 > **Built with [OpenSpec](https://github.com/fission-ai/openspec)** — a spec-driven AI development workflow for coding agents.
 
