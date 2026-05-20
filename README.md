@@ -1,13 +1,13 @@
 # Do It — Goal Tracking App
 
-> **Built with [OpenSpec](https://github.com/raphaellondner/openspec)** — a spec-driven AI development workflow for Claude Code.
+> **Built with [OpenSpec](https://github.com/fission-ai/openspec)** — a spec-driven AI development workflow for coding agents.
 
 ---
 
 ## Medium Article
 
-<!-- TODO: Add link once published -->
-> **[Title TBD](#)** — *Published on Medium*
+
+> **[Spec Kit vs. OpenSpec: I Built the Same App Twice to Find Out](https://medium.com/@raphaellondner/spec-kit-vs-openspec-i-built-the-same-app-twice-to-find-out-0fcdcfa08b46)** — *Published on Medium*
 >
 > This repo is the companion codebase for a Medium article walking through how to build a full-stack Next.js app using the OpenSpec spec-driven workflow with Claude Code — from proposal to archive in a single session.
 
